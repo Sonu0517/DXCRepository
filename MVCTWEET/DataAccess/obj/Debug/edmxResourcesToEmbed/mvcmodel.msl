@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MVCSBAModelStoreContainer" CdmEntityContainer="MVCSBAEntities">
+    <EntitySetMapping Name="Persons">
+      <EntityTypeMapping TypeName="MVCSBAModel.Person">
+        <MappingFragment StoreEntitySet="Persons">
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="joined" ColumnName="joined" />
+          <ScalarProperty Name="active" ColumnName="active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tweets">
+      <EntityTypeMapping TypeName="MVCSBAModel.Tweet">
+        <MappingFragment StoreEntitySet="Tweet">
+          <ScalarProperty Name="TweetID" ColumnName="TweetID" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="created" ColumnName="created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Followings">
+      <EntityTypeMapping TypeName="MVCSBAModel.Following">
+        <MappingFragment StoreEntitySet="Following">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Following_ID" ColumnName="Following_ID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MVCSBAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MVCSBA.dbo.Following' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Following">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="Following_ID" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="UserID" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Following_ID" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Persons">
+    <Key>
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="userid" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="fullname" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="joined" Type="datetime" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tweet">
+    <Key>
+      <PropertyRef Name="TweetID" />
+    </Key>
+    <Property Name="TweetID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="message" Type="varchar" MaxLength="140" Nullable="false" />
+    <Property Name="created" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_person_following_following_id">
+    <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+    <End Role="Following" Type="Self.Following" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persons">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="Following">
+        <PropertyRef Name="Following_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_person_following_userid">
+    <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+    <End Role="Following" Type="Self.Following" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persons">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="Following">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_persons_Tweet">
+    <End Role="Persons" Type="Self.Persons" Multiplicity="1" />
+    <End Role="Tweet" Type="Self.Tweet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persons">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="Tweet">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MVCSBAModelStoreContainer">
+    <EntitySet Name="Persons" EntityType="Self.Persons" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tweet" EntityType="Self.Tweet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Following" EntityType="Self.Following" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Following].[UserID] AS [UserID], 
+    [Following].[Following_ID] AS [Following_ID], 
+    [Following].[id] AS [id]
+    FROM [dbo].[Following] AS [Following]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="fk_person_following_following_id" Association="Self.fk_person_following_following_id">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Following" EntitySet="Following" />
+    </AssociationSet>
+    <AssociationSet Name="fk_person_following_userid" Association="Self.fk_person_following_userid">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Following" EntitySet="Following" />
+    </AssociationSet>
+    <AssociationSet Name="fk_persons_Tweet" Association="Self.fk_persons_Tweet">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Tweet" EntitySet="Tweet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MY TWEET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("MY TWEET", "Index", "Blogs", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (User.Identity.IsAuthenticated == false)
+                    {
+                        <li>@Html.ActionLink("Register", "Register", "MT")</li>
+                        <li>@Html.ActionLink("Login", "Login", "MT")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("create post","create","Blogs")</li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="row" >
+            <div class="col-lg-12">
+                @if(User.Identity.IsAuthenticated)
+                 {
+                    <h3>Welcome @User.Identity.Name,@Html.ActionLink("Logout","Logout","MT")</h3>
+                }
+                else
+                {
+                    <h3>Welcome Guest</h3>
+                }
+            </div>
+
+        </div>
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My TWEET</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

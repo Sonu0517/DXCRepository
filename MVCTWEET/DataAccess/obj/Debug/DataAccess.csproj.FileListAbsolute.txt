@@ -1,0 +1,12 @@
+C:\WebApi\MVCTWEET\DataAccess\bin\Debug\DataAccess.dll.config
+C:\WebApi\MVCTWEET\DataAccess\bin\Debug\DataAccess.dll
+C:\WebApi\MVCTWEET\DataAccess\bin\Debug\DataAccess.pdb
+C:\WebApi\MVCTWEET\DataAccess\bin\Debug\EntityFramework.dll
+C:\WebApi\MVCTWEET\DataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\WebApi\MVCTWEET\DataAccess\bin\Debug\EntityFramework.xml
+C:\WebApi\MVCTWEET\DataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\WebApi\MVCTWEET\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+C:\WebApi\MVCTWEET\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+C:\WebApi\MVCTWEET\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+C:\WebApi\MVCTWEET\DataAccess\obj\Debug\DataAccess.dll
+C:\WebApi\MVCTWEET\DataAccess\obj\Debug\DataAccess.pdb

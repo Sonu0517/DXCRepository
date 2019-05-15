@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MVCSBAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="userid" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fullname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="joined" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="active" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Followings" Relationship="Self.fk_person_following_following_id" FromRole="Persons" ToRole="Following" />
+    <NavigationProperty Name="Followings1" Relationship="Self.fk_person_following_userid" FromRole="Persons" ToRole="Following" />
+    <NavigationProperty Name="Tweets" Relationship="Self.fk_persons_Tweet" FromRole="Persons" ToRole="Tweet" />
+  </EntityType>
+  <EntityType Name="Tweet">
+    <Key>
+      <PropertyRef Name="TweetID" />
+    </Key>
+    <Property Name="TweetID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="message" Type="String" MaxLength="140" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Person" Relationship="Self.fk_persons_Tweet" FromRole="Tweet" ToRole="Persons" />
+  </EntityType>
+  <EntityType Name="Following">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="Following_ID" />
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="UserID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Following_ID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Person" Relationship="Self.fk_person_following_following_id" FromRole="Following" ToRole="Persons" />
+    <NavigationProperty Name="Person1" Relationship="Self.fk_person_following_userid" FromRole="Following" ToRole="Persons" />
+  </EntityType>
+  <Association Name="fk_person_following_following_id">
+    <End Role="Persons" Type="Self.Person" Multiplicity="1" />
+    <End Role="Following" Type="Self.Following" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persons">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="Following">
+        <PropertyRef Name="Following_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_person_following_userid">
+    <End Role="Persons" Type="Self.Person" Multiplicity="1" />
+    <End Role="Following" Type="Self.Following" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persons">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="Following">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_persons_Tweet">
+    <End Role="Persons" Type="Self.Person" Multiplicity="1" />
+    <End Role="Tweet" Type="Self.Tweet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Persons">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="Tweet">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MVCSBAEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Persons" EntityType="Self.Person" />
+    <EntitySet Name="Tweets" EntityType="Self.Tweet" />
+    <EntitySet Name="Followings" EntityType="Self.Following" />
+    <AssociationSet Name="fk_person_following_following_id" Association="Self.fk_person_following_following_id">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Following" EntitySet="Followings" />
+    </AssociationSet>
+    <AssociationSet Name="fk_person_following_userid" Association="Self.fk_person_following_userid">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Following" EntitySet="Followings" />
+    </AssociationSet>
+    <AssociationSet Name="fk_persons_Tweet" Association="Self.fk_persons_Tweet">
+      <End Role="Persons" EntitySet="Persons" />
+      <End Role="Tweet" EntitySet="Tweets" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
